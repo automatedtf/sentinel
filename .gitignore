@@ -1,0 +1,8 @@
+# NPM Dependencies
+node_modules
+
+# Built Files
+out
+
+# System Configurations
+*.env
