@@ -1,4 +1,5 @@
 # Sentinel
+`Work in Progress`
 
 ### **Table of Contents**
 - **Introduction**
@@ -63,4 +64,4 @@ The following are optional:
 
 ## Use Cases
 
-The intricate setup and maintenance for a bot is handled by this application, meaning that one can have a bot instance that starts publishing all new events immediately from startup. As such, there is a layer of abstraction provided for which the handlers for these events can be moved elsewhere e.g a serverless Lambda function or centralised API. This component application is too also work out of the box for a K8s cluster setup with a centralised event / message broker service.
+The intricate setup and maintenance for a bot is handled by this application, meaning that one can have a bot instance that starts publishing all new events immediately from startup. As such, there is a layer of abstraction provided for which the handlers for these events can be moved elsewhere e.g a serverless Lambda function or centralised API. This component application is to also work out of the box for a K8s cluster setup with a centralised event / message broker service.
