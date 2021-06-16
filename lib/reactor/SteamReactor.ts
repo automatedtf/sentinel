@@ -51,6 +51,8 @@ export default class SteamReactor extends EventEmitter {
         });
         
         user.on("webSession", (sessionid, cookies) => {
+            this.emit(SteamEvents.OnWebSessionJoin, { sessionid, cookies });
+            Logger.output(LogMessage.WebSessionJoin(cookies));
             this.tradeManager.setCookies(cookies);
             this._hookOntoSteamTradeListeners();
         });

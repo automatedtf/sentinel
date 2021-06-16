@@ -15,6 +15,7 @@ export class Logger {
 export const LogMessage = {
     LoggedIn: (steamid: string) => `🔌 Bot ${steamid} logged in`,
     LoggedOut: (steamid: string) => `🔴 Bot ${steamid} logged out or disconnected`,
+    WebSessionJoin: (cookies: string[]) => `🍪 Cookies obtained from joining web session: ${cookies}`,
     AwaitingSteamGuard: (steamid: string) => `🛡️ Bot ${steamid} awaiting new Steam Guard code`,
     ReceivedMessageFrom: (sender: string, message: string) => `💬 Chat message from ${sender}: ${message}`,
     SentOfferTo: (receiver: string, offerid: string) => `📤 Sent offer ${offerid} to user ${receiver}`,
