@@ -19,6 +19,9 @@ Emitted when an error has occurred.
 ### `OnLogin`
 Emitted when the bot instance has logged into Steam's web client
 
+### `OnWebSessionJoin`
+Emitted when the bot has connected to a Steam web session
+
 ### `OnLogout`
 Emitted when the bot instance has logged out of Steam's web client
 
