@@ -60,6 +60,7 @@ To run `make sentinel-instance` successfully to be used within a system, the `EN
 The following are optional:
 
     PLAYING_GAME_NAME=???
+    LOGON_ID=??? # e.g 336162
 
 
 ## Use Cases

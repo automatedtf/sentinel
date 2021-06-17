@@ -8,7 +8,8 @@ import axios from 'axios';
 let bot = new SteamReactor({
     accountName: process.env.ACCOUNT_NAME,
     password: process.env.ACCOUNT_PASSWORD,
-    twoFactorCode: SteamTotp.getAuthCode(process.env.SHARED_SECRET)
+    twoFactorCode: SteamTotp.getAuthCode(process.env.SHARED_SECRET),
+    logonID: process.env.LOGON_ID || Math.floor(Math.random() * (2 ** 16))
 });
 
 // Send all events upstream if an upstream is set
