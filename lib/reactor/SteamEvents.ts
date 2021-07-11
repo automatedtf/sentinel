@@ -28,7 +28,7 @@ export interface SteamEventDetails {
     [SteamEvents.OnFriendRequest]: (data: OnFriendRequestDetails) => void;
 }
 
-interface OnErrorDetails extends Error {};
+interface OnErrorDetails { error: Error; };
 interface OnLoginDetails {};
 
 interface OnWebSessionJoinDetails {
@@ -41,11 +41,26 @@ interface OnLogoutDetails {
     msg?: string;
 }
 
-interface OnNewTradeDetails extends TradeOffer {};
-interface OnTradeSentDetails extends TradeOffer {};
-interface OnSentTradeCompletedDetails extends TradeOffer {};
-interface OnIncomingTradeCompletedDetails extends TradeOffer {};
-interface OnTradeFailedDetails extends TradeOffer {};
+interface OnNewTradeDetails {
+    offer: TradeOffer;
+};
+
+interface OnTradeSentDetails {
+    offer: TradeOffer;
+};
+
+
+interface OnSentTradeCompletedDetails {
+    offer: TradeOffer;
+};
+
+interface OnIncomingTradeCompletedDetails {
+    offer: TradeOffer;
+};
+
+interface OnTradeFailedDetails {
+    offer: TradeOffer;
+};
 
 interface OnChatMessageDetails {
     steamid: string;

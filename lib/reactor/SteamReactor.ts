@@ -27,9 +27,9 @@ export default class SteamReactor extends TypedEmitter<SteamEventDetails> {
     _hookOntoSteamUserListeners() {
         let { user } = this;
 
-        user.on("error", (err: Error) => {
-            this.emit(SteamEvents.OnError, err);
-            Logger.error(`Received node-steam-user error ${err.message}`);
+        user.on("error", (error: Error) => {
+            this.emit(SteamEvents.OnError, { error });
+            Logger.error(`Received node-steam-user error ${error.message}`);
         });
 
         user.on("steamGuard", (domain, callback, lastCodeWrong) => {
@@ -88,29 +88,29 @@ export default class SteamReactor extends TypedEmitter<SteamEventDetails> {
 
         tradeManager.on("newOffer", (offer) => {
             Logger.output(LogMessage.ReceivedOfferFrom(offer.partner, offer.id));
-            this.emit(SteamEvents.OnNewTrade, offer);
+            this.emit(SteamEvents.OnNewTrade, { offer });
         });
 
         tradeManager.on("sentOfferChanged", (offer, oldState) => {
             switch (offer.state) {
                 case Active:
                     Logger.output(LogMessage.SentOfferTo(offer.partner, offer.id));
-                    this.emit(SteamEvents.OnTradeSent, offer);
+                    this.emit(SteamEvents.OnTradeSent, { offer });
                     break;
                 case Accepted:
                     Logger.output(LogMessage.TradeCompleted(offer.id));
-                    this.emit(SteamEvents.OnSentTradeCompleted, offer);
+                    this.emit(SteamEvents.OnSentTradeCompleted, { offer });
                     break;
                 case InvalidItems:
                 case Declined:
                 case Expired:
                 case CanceledBySecondFactor:
                     Logger.warning(LogMessage.TradeFailed(offer.id));
-                    this.emit(SteamEvents.OnTradeFailed, offer);
+                    this.emit(SteamEvents.OnTradeFailed, { offer });
                     break;
                 case Countered:
                     Logger.warning(LogMessage.ReceivedOfferFrom(offer.partner, offer.id));
-                    this.emit(SteamEvents.OnNewTrade, offer);
+                    this.emit(SteamEvents.OnNewTrade, { offer });
                     break;
             }
         });
@@ -119,18 +119,18 @@ export default class SteamReactor extends TypedEmitter<SteamEventDetails> {
             switch (offer.state) {
                 case Active:
                     Logger.output(LogMessage.ReceivedOfferFrom(offer.partner, offer.id));
-                    this.emit(SteamEvents.OnNewTrade, offer);
+                    this.emit(SteamEvents.OnNewTrade, { offer });
                     break;
                 case Accepted:
                     Logger.output(LogMessage.TradeCompleted(offer.id));
-                    this.emit(SteamEvents.OnIncomingTradeCompleted, offer);
+                    this.emit(SteamEvents.OnIncomingTradeCompleted, { offer });
                     break;
                 case Declined:
                 case Expired:
                 case Canceled:
                 case InvalidItems:
                     Logger.warning(LogMessage.TradeFailed(offer.id));
-                    this.emit(SteamEvents.OnTradeFailed, offer);
+                    this.emit(SteamEvents.OnTradeFailed, { offer });
                     break;
             }
         });
