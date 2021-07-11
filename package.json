@@ -23,12 +23,14 @@
   },
   "homepage": "https://github.com/automatedtf/sentinel#readme",
   "dependencies": {
+    "@automatedtf/slate": "^0.0.16",
     "axios": "^0.21.1",
     "dotenv": "^9.0.2",
     "events": "^3.3.0",
     "steam-totp": "^2.1.1",
     "steam-tradeoffer-manager": "^2.10.3",
-    "steam-user": "^4.19.7"
+    "steam-user": "^4.19.7",
+    "tiny-typed-emitter": "^2.0.3"
   },
   "devDependencies": {
     "@types/events": "^3.0.0",

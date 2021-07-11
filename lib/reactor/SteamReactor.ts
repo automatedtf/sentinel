@@ -1,12 +1,12 @@
 require("dotenv").config();
-import { SteamEvents } from "./ESteamEvents";
+import { SteamEvents, SteamEventDetails } from './SteamEvents';
 import SteamUser from "steam-user";
 import SteamTradeManager from "steam-tradeoffer-manager";
-import { EventEmitter } from "stream";
+import { TypedEmitter } from "tiny-typed-emitter";
 import SteamTotp from 'steam-totp';
 import { Logger, LogMessage } from '../logger/Logger';
 
-export default class SteamReactor extends EventEmitter {
+export default class SteamReactor extends TypedEmitter<SteamEventDetails> {
     user: any;
     tradeManager: any;
 
@@ -42,35 +42,37 @@ export default class SteamReactor extends EventEmitter {
             }, 30 * 1000);
         });
 
-        user.on("loggedOn", (...data) => {
+        user.on("loggedOn", () => {
             this.userOnline = true;
-            this.emit(SteamEvents.OnLogin, ...data);
+            this.emit(SteamEvents.OnLogin, null);
             this.user.setPersona(SteamUser.EPersonaState.Online);
             this.user.gamesPlayed([process.env.PLAYING_GAME_NAME || "🔰 Running Sentinel", 440]);
             Logger.output(LogMessage.LoggedIn(process.env.STEAMID));
         });
         
-        user.on("webSession", (sessionid, cookies) => {
+        user.on("webSession", (sessionid: string, cookies: string[]) => {
             this.emit(SteamEvents.OnWebSessionJoin, { sessionid, cookies });
             Logger.output(LogMessage.WebSessionJoin(cookies));
             this.tradeManager.setCookies(cookies);
             this._hookOntoSteamTradeListeners();
         });
 
-        user.on("disconnected", (...data) => {
-            this.emit(SteamEvents.OnLogout, data);
+        user.on("disconnected", (eresult: number, msg: string) => {
+            this.emit(SteamEvents.OnLogout, { eresult, msg });
             Logger.warning(LogMessage.LoggedOut(this.user.steamID));
         });
     
-        user.chat.on("friendMessage", ({ steamid_friend, message }) => {
-            this.emit(SteamEvents.OnChatMessage, { steamid: steamid_friend, message });
-            Logger.output(LogMessage.ReceivedMessageFrom(steamid_friend, message));
+        user.chat.on("friendMessage", (sid: any, message: string) => {
+            const steamid = sid.getSteamID64();
+            this.emit(SteamEvents.OnChatMessage, { steamid, message });
+            Logger.output(LogMessage.ReceivedMessageFrom(steamid, message));
         });
     
         user.on("friendRelationship", (sid, relationship) => {
+            const steamid = sid.getSteamID64()
             if (relationship == SteamUser.EFriendRelationship.RequestRecipient) {
-                this.emit(SteamEvents.OnFriendRequest, sid);
-                Logger.output(LogMessage.ReceivedFriendRequestFrom(sid));
+                this.emit(SteamEvents.OnFriendRequest, steamid);
+                Logger.output(LogMessage.ReceivedFriendRequestFrom(steamid));
             } else {
                 Logger.warning("Admin has added a friend themselves");
             }

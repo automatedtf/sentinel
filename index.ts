@@ -1,7 +1,7 @@
 require("dotenv").config();
 import SteamReactor from './lib/reactor/SteamReactor';
 import SteamTotp from 'steam-totp';
-import { SteamEvents } from './lib/reactor/ESteamEvents';
+import { SteamEvents } from './lib/reactor/SteamEvents';
 import axios from 'axios';
 
 // Set up bot
@@ -14,9 +14,9 @@ let bot = new SteamReactor({
 
 // Send all events upstream if an upstream is set
 if (process.env.UPSTREAM != null) {
-    for (const event in SteamEvents) {
+    Object.values(SteamEvents).forEach((event) => {
         bot.on(event, async (data) => {
-            await axios.post(process.env.UPSTREAM, { event, data });
+            await axios.post(process.env.UPSTREAM, { steamid: process.env.STEAMID, event, data });
         });
-    }
+    });
 }
