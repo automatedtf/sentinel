@@ -1,9 +1,9 @@
 # Sentinel
 ### 📖 Table of Contents
-- [👋 Introduction](#introduction)
-- [🔌 Getting Started](#getting-started)
-- [✨ Events](#events)
-- [💎 What can it be used for?](#what-can-it-be-used-for)
+- [👋 Introduction](#-introduction)
+- [🔌 Getting Started](#-getting-started)
+- [✨ Events](#-events)
+- [💎 What can it be used for?](#-what-can-it-be-used-for)
     - [Single Instance Bots](#single-instance-bots)
     - [Distributed Systems](#distributed-systems)
 
