@@ -5,10 +5,24 @@ import SteamTradeManager from "steam-tradeoffer-manager";
 import { TypedEmitter } from "tiny-typed-emitter";
 import SteamTotp from 'steam-totp';
 import { Logger, LogMessage } from '../logger/Logger';
+import EventEmitter from 'events';
+
+export type ISteamUser = EventEmitter & {
+    steamID: string;
+    chat: EventEmitter;
+
+    logOn: (any) => void;
+    setPersona: (any) => void;
+    gamesPlayed: (any) => void;
+}
+
+export type ITradeManager = EventEmitter & {
+    setCookies: (any) => void;
+}
 
 export default class SteamReactor extends TypedEmitter<SteamEventDetails> {
-    user: any;
-    tradeManager: any;
+    user: ISteamUser;
+    tradeManager: ITradeManager;
 
     userOnline: boolean; // Used to prevent double login attempts
 
@@ -71,7 +85,7 @@ export default class SteamReactor extends TypedEmitter<SteamEventDetails> {
         user.on("friendRelationship", (sid, relationship) => {
             const steamid = sid.getSteamID64()
             if (relationship == SteamUser.EFriendRelationship.RequestRecipient) {
-                this.emit(SteamEvents.OnFriendRequest, steamid);
+                this.emit(SteamEvents.OnFriendRequest, { steamid });
                 Logger.output(LogMessage.ReceivedFriendRequestFrom(steamid));
             } else {
                 Logger.warning("Admin has added a friend themselves");
