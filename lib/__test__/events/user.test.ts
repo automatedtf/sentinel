@@ -7,7 +7,6 @@ import SteamUser from 'steam-user';
 let steamReactor: SteamReactor;
 let steamUserMock;
 let tradeOfferManagerMock;
-// let steamTradeOfferManager = new SteamTradeOfferManager() as jest.Mocked<typeof SteamTradeOfferManager>;
 
 jest.useFakeTimers(); 
 jest.setTimeout(10000);
@@ -116,5 +115,19 @@ describe("friendRelationship", () => {
         });
 
         steamReactor.user.emit("friendRelationship", SID, RELATIONSHIP);
+    });
+});
+
+describe("tradeRequest", () => {
+    it("All trade requests will be rejected by providing false to callback", () => {
+        const SID = {
+            getSteamID64: () => "STEAM_ID_64"
+        };
+
+        const RESPOND = jest.fn();
+
+        steamReactor.user.emit("tradeRequest", SID, RESPOND);
+        expect(RESPOND).toBeCalledTimes(1);
+        expect(RESPOND).toBeCalledWith(false);
     });
 });
