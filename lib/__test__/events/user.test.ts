@@ -1,5 +1,4 @@
 import SteamReactor from '../../reactor/SteamReactor';
-import { ISteamUser } from '../../reactor/SteamReactor';
 import { SteamEvents } from '../../reactor/SteamEvents';
 import SteamUser from 'steam-user';
 
