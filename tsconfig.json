@@ -16,7 +16,6 @@
     "include": [
         "lib/**/*",
         "index.ts",
-        "__test__"
     ],
     "exclude": [
         "node_modules",

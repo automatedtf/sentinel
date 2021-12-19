@@ -8,7 +8,7 @@
   },
   "scripts": {
     "build": "tsc",
-    "test": "jest",
+    "test": "tsc && jest",
     "dev": "npm run build && node out/index.js",
     "start": "node out/index.js"
   },
@@ -24,6 +24,8 @@
   "homepage": "https://github.com/automatedtf/sentinel#readme",
   "dependencies": {
     "@automatedtf/slate": "^0.0.16",
+    "@babel/plugin-transform-modules-commonjs": "^7.16.5",
+    "@babel/preset-typescript": "^7.16.5",
     "axios": "^0.21.1",
     "dotenv": "^9.0.2",
     "events": "^3.3.0",
@@ -38,5 +40,8 @@
     "jest": "^27.3.0",
     "ts-jest": "^27.0.7",
     "typescript": "^4.2.4"
+  },
+  "jest": {
+    "verbose": true
   }
 }
