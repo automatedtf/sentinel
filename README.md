@@ -1,4 +1,4 @@
-# Sentinel
+# Sentinel • ![https://github.com/automatedtf/sentinel/actions/workflows/testing.yml/badge.svg](https://github.com/automatedtf/sentinel/actions/workflows/testing.yml/badge.svg)
 ### 📖 Table of Contents
 - [👋 Introduction](#-introduction)
 - [🔌 Getting Started](#-getting-started)
