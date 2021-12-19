@@ -12,7 +12,7 @@ jobs:
       uses: actions/checkout@v2
       
     - name: Build tests
-      run: docker build . --file test.dockerfile --tag sentinel-tests
+      run: docker build . --file test.Dockerfile --tag sentinel-tests
 
     - name: Run tests
       run: docker run sentinel-tests
