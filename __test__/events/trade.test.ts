@@ -1,5 +1,5 @@
-import SteamReactor from '../../reactor/SteamReactor';
-import { SteamEvents } from '../../reactor/SteamEvents';
+import SteamReactor from '../../lib/reactor/SteamReactor';
+import { SteamEvents } from '../../lib/reactor/SteamEvents';
 import SteamTradeManager from 'steam-tradeoffer-manager';
 
 const { Active, Accepted, Declined, Expired, Canceled, Countered, InvalidItems, CanceledBySecondFactor } = SteamTradeManager.ETradeOfferState;

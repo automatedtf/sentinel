@@ -1,7 +1,6 @@
-import SteamReactor from '../../reactor/SteamReactor';
-import { SteamEvents } from '../../reactor/SteamEvents';
+import SteamReactor from '../../lib/reactor/SteamReactor';
+import { SteamEvents } from '../../lib/reactor/SteamEvents';
 import SteamUser from 'steam-user';
-
 
 let steamReactor: SteamReactor;
 let steamUserMock;
