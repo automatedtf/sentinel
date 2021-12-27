@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/automatedtf/sentinel#readme",
   "dependencies": {
-    "@automatedtf/slate": "^0.0.16",
+    "@automatedtf/slate": "^0.0.21",
     "@babel/plugin-transform-modules-commonjs": "^7.16.5",
     "@babel/preset-typescript": "^7.16.5",
     "axios": "^0.21.1",
