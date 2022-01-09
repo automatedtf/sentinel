@@ -69,8 +69,13 @@ export default class SteamReactor extends TypedEmitter<SteamEventDetails> {
             Logger.output(LogMessage.WebSessionJoin(cookies));
 
             if (process.env.NODE_ENV !== "test") {
-                this.tradeManager.setCookies(cookies, () => {
-                    this._hookOntoSteamTradeListeners();
+                this.tradeManager.setCookies(cookies, (error) => {
+                    if (error) {
+                        Logger.error(`Failed to set cookies ${error.message}`);
+                        this.emit(SteamEvents.OnError, { error });
+                    } else {
+                        this._hookOntoSteamTradeListeners();
+                    }
                 });
             } else {
                 this._hookOntoSteamTradeListeners();
