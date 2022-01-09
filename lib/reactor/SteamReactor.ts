@@ -17,7 +17,7 @@ export type ISteamUser = EventEmitter & {
 }
 
 export type ITradeManager = EventEmitter & {
-    setCookies: (any) => void;
+    setCookies: (cookies: any, callback: (error: Error) => void) => void;
 }
 
 export default class SteamReactor extends TypedEmitter<SteamEventDetails> {
@@ -67,8 +67,14 @@ export default class SteamReactor extends TypedEmitter<SteamEventDetails> {
         user.on("webSession", (sessionid: string, cookies: string[]) => {
             this.emit(SteamEvents.OnWebSessionJoin, { sessionid, cookies });
             Logger.output(LogMessage.WebSessionJoin(cookies));
-            if (process.env.NODE_ENV !== "test") this.tradeManager.setCookies(cookies);
-            this._hookOntoSteamTradeListeners();
+
+            if (process.env.NODE_ENV !== "test") {
+                this.tradeManager.setCookies(cookies, () => {
+                    this._hookOntoSteamTradeListeners();
+                });
+            } else {
+                this._hookOntoSteamTradeListeners();
+            }
         });
 
         user.on("disconnected", (eresult: number, msg: string) => {
