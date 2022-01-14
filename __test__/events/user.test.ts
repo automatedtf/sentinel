@@ -89,13 +89,13 @@ describe("friendMessage", () => {
 describe("friendRelationship", () => {
     it("Should emit OnFriendRequest for an incoming friend request", () => {
         const SID = {
-            getSteamID64: () => "STEAM_ID_64"
+            toString: () => "STEAM_ID_64"
         };
 
         const RELATIONSHIP = SteamUser.EFriendRelationship.RequestRecipient;
 
         steamReactor.on(SteamEvents.OnFriendRequest, ({ steamid }) => {
-            expect(steamid).toBe(SID.getSteamID64());
+            expect(steamid).toBe(SID.toString());
         });
 
         steamReactor.user.emit("friendRelationship", SID, RELATIONSHIP);
@@ -103,7 +103,7 @@ describe("friendRelationship", () => {
 
     it("Should not emit OnFriendRequest for an outgoing friend request", () => {
         const SID = {
-            getSteamID64: () => "STEAM_ID_64"
+            toString: () => "STEAM_ID_64"
         };
 
         const RELATIONSHIP = "";
@@ -119,7 +119,7 @@ describe("friendRelationship", () => {
 describe("tradeRequest", () => {
     it("All trade requests will be rejected by providing false to callback", () => {
         const SID = {
-            getSteamID64: () => "STEAM_ID_64"
+            toString: () => "STEAM_ID_64"
         };
 
         const RESPOND = jest.fn();
