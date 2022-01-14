@@ -88,13 +88,13 @@ export default class SteamReactor extends TypedEmitter<SteamEventDetails> {
         });
     
         user.chat.on("friendMessage", (sid: any, message: string) => {
-            const steamid = sid.getSteamID64();
+            const steamid = sid.toString();
             this.emit(SteamEvents.OnChatMessage, { steamid, message });
             Logger.output(LogMessage.ReceivedMessageFrom(steamid, message));
         });
     
         user.on("friendRelationship", (sid, relationship) => {
-            const steamid = sid.getSteamID64()
+            const steamid = sid.toString();
             if (relationship == SteamUser.EFriendRelationship.RequestRecipient) {
                 this.emit(SteamEvents.OnFriendRequest, { steamid });
                 Logger.output(LogMessage.ReceivedFriendRequestFrom(steamid));
