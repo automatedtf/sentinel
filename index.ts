@@ -3,6 +3,7 @@ import SteamReactor from './lib/reactor/SteamReactor';
 import SteamTotp from 'steam-totp';
 import { SteamEvents } from './lib/reactor/SteamEvents';
 import axios from 'axios';
+import { serialiseData } from './lib/reactor/util';
 
 // Set up bot
 let bot = new SteamReactor({
@@ -16,7 +17,7 @@ let bot = new SteamReactor({
 if (process.env.UPSTREAM != null) {
     Object.values(SteamEvents).forEach((event) => {
         bot.on(event, async (data) => {
-            await axios.post(process.env.UPSTREAM, { steamid: process.env.STEAMID, event, data });
+            await axios.post(process.env.UPSTREAM, { steamid: process.env.STEAMID, event, data: serialiseData(data) });
         });
     });
 }
