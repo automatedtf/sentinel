@@ -1,16 +1,14 @@
 require("dotenv").config();
-import SteamReactor from './lib/reactor/SteamReactor';
-import SteamTotp from 'steam-totp';
-import { SteamEvents } from './lib/reactor/SteamEvents';
 import axios from 'axios';
-import { serialiseData } from './lib/reactor/util';
+import { serialiseData, SteamEvents, SteamReactor } from '@automatedtf/reactor';
 
 // Set up bot
-let bot = new SteamReactor({
+const bot = new SteamReactor({
+    steamid: process.env.STEAMID,
     accountName: process.env.ACCOUNT_NAME,
     password: process.env.ACCOUNT_PASSWORD,
-    twoFactorCode: SteamTotp.getAuthCode(process.env.SHARED_SECRET),
-    logonID: parseInt(process.env.LOGON_ID) || Math.floor(Math.random() * (2 ** 16))
+    sharedSecret: process.env.SHARED_SECRET,
+    logonID: process.env.LOGON_ID ? parseInt(process.env.LOGON_ID) : undefined
 });
 
 // Send all events upstream if an upstream is set
