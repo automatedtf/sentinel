@@ -12,9 +12,9 @@ Sentinel is a standardised Steam API event sourcer for events and changes on a S
 
 ## 🔌 Getting Started
 
-Building of the Sentinel Docker image can be done by simply calling `make sentinel-container`, assuming Docker is installed on the runner build system.
+Building of the Sentinel Docker image can be done by simply calling `make image`, assuming Docker is installed on the runner build system.
 
-To run `make sentinel-instance` successfully to be used within a system, the `ENV_FILE` flag must be set to the path of a `.env` file that states the following as a minimum:
+To run `make container` successfully to be used within a system, the `ENV_FILE` flag must be set to the path of a `.env` file that states the following as a minimum:
 
 ```env
 ACCOUNT_NAME=???
