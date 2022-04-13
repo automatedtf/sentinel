@@ -14,8 +14,8 @@ const bot = new SteamReactor({
 // Send all events upstream if an upstream is set
 if (process.env.UPSTREAM != null) {
     Object.values(SteamEvents).forEach((event) => {
-        bot.on(event, async (data) => {
-            await axios.post(process.env.UPSTREAM, { steamid: process.env.STEAMID, event, data: serialiseData(data) });
+        bot.on(event, (data) => {
+            axios.post(process.env.UPSTREAM, { steamid: process.env.STEAMID, event, data: serialiseData(data) });
         });
     });
 }
