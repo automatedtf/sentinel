@@ -23,8 +23,8 @@
   },
   "homepage": "https://github.com/automatedtf/sentinel#readme",
   "dependencies": {
-    "@automatedtf/reactor": "^0.0.8",
-    "axios": "^0.21.1",
+    "@automatedtf/reactor": "^0.0.9",
+    "axios": "^0.26.1",
     "dotenv": "^14.3.2"
   },
   "devDependencies": {
